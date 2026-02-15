@@ -69,9 +69,14 @@ lzmq_dll = env.SharedLibrary(f'{lzmq_path}/src/liblzmq.dll',
 # INSTALL
 inst_dir = 'built'
 inst_path = '{}/{}'.format(os.getcwd(), inst_dir)
+import glob as _glob
+_mingw_gcc_dirs = _glob.glob('/usr/lib/gcc/x86_64-w64-mingw32/*-win32')
+if not _mingw_gcc_dirs:
+    raise RuntimeError('mingw-w64 GCC runtime not found in /usr/lib/gcc/x86_64-w64-mingw32/')
+_mingw_gcc_dir = _mingw_gcc_dirs[0]
 mingw_libs = [
-    '/usr/lib/gcc/x86_64-w64-mingw32/8.3-win32/libgcc_s_seh-1.dll',
-    '/usr/lib/gcc/x86_64-w64-mingw32/8.3-win32/libstdc++-6.dll',
+    f'{_mingw_gcc_dir}/libgcc_s_seh-1.dll',
+    f'{_mingw_gcc_dir}/libstdc++-6.dll',
 ]
 
 env.Install(inst_path,

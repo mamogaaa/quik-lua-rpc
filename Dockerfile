@@ -11,8 +11,8 @@ ENV CONTAINER docker
 ## Настройка APT.
 ENV DEBIAN_FRONTEND noninteractive
 #COPY src/sources.list /etc/apt/sources.list
-RUN chmod 0644 /etc/apt/sources.list
-RUN chown root:root /etc/apt/sources.list
+#RUN chmod 0644 /etc/apt/sources.list
+#RUN chown root:root /etc/apt/sources.list
 RUN echo "debconf debconf/frontend select text" | debconf-set-selections && \
     echo "debconf debconf/frontend select noninteractive" | debconf-set-selections && \
     apt-get update && \
